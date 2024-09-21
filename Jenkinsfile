@@ -70,6 +70,16 @@ pipeline {
         }
       }
     }
+    
+    stage('Docker Build and Push') {
+      steps {
+        withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+          sh 'printenv'
+          sh 'sudo docker build -t mkbn/numeric-app:""$GIT_COMMIT"" .'
+          sh 'docker push mkbn/numeric-app:""$GIT_COMMIT""'
+        }
+      }
+    }
   }
 }
  //    stage('Mutation Tests - PIT') {
@@ -108,17 +118,7 @@ pipeline {
  //      	)
  //      }
  //    }
-    
 
-    stage('Docker Build and Push') {
-      steps {
-        withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
-          sh 'printenv'
-          sh 'sudo docker build -t mkbn/numeric-app:""$GIT_COMMIT"" .'
-          sh 'docker push mkbn/numeric-app:""$GIT_COMMIT""'
-        }
-      }
-    }
 
  //    stage('Vulnerability Scan - Kubernetes') {
  //      steps {
