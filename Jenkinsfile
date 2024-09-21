@@ -58,12 +58,13 @@ pipeline {
         archiveArtifacts 'target/*.jar'
       }
     }
-  }
-    stage('Unit Tests - JUnit and JaCoCo') {
+
+   stage('Unit Tests - JUnit and JaCoCo') {
       steps {
         sh "mvn test"
       }
     }
+  }
 }
  //    stage('Mutation Tests - PIT') {
  //      steps {
