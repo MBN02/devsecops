@@ -84,16 +84,9 @@ pipeline {
 
     stage('SonarQube - SAST') {
       steps {
-        withSonarQubeEnv('SonarQube') {
-          mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application' -Dsonar.host.url=http://devsecops.eastus.cloudapp.azure.com:9000 -Dsonar.token=sqp_671354f0d2b589c865be991b698c951f98090130
-        }
-        timeout(time: 2, unit: 'MINUTES') {
-          script {
-            waitForQualityGate abortPipeline: true
-          }
+          sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application' -Dsonar.host.url=http://devsecops.eastus.cloudapp.azure.com:9000 -Dsonar.token=sqp_671354f0d2b589c865be991b698c951f98090130"
         }
       }
-    }
 
     stage('Docker Build and Push') {
       steps {
@@ -106,6 +99,21 @@ pipeline {
     }
   }
 }
+
+ //    stage('SonarQube - SAST') {
+ //      steps {
+ //        withSonarQubeEnv('SonarQube') {
+ //          sh "mvn sonar:sonar \
+	// 	              -Dsonar.projectKey=numeric-application \
+	// 	              -Dsonar.host.url=http://devsecops-demo.eastus.cloudapp.azure.com:9000"
+ //        }
+ //        timeout(time: 2, unit: 'MINUTES') {
+ //          script {
+ //            waitForQualityGate abortPipeline: true
+ //          }
+ //        }
+ //      }
+ //    }
 
 	// stage('Vulnerability Scan - Docker') {
  //      steps {
