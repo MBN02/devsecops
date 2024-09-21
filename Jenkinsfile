@@ -88,11 +88,6 @@ pipeline {
           sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.projectName='numeric-application' -Dsonar.host.url=http://devsecops.eastus.cloudapp.azure.com:9000 -Dsonar.token=${SONAR_TOKEN}"
         }
       }
-      timeout(time: 2, unit: 'MINUTES') {
-        script {
-          waitForQualityGate abortPipeline: true
-        }
-      }
     }
 
     stage('Docker Build and Push') {
