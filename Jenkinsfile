@@ -46,7 +46,7 @@ pipeline {
   //   deploymentName = "devsecops"
   //   containerName = "devsecops-container"
   //   serviceName = "devsecops-svc"
-  //   imageName = "siddharth67/numeric-app:${GIT_COMMIT}"
+  //   imageName = "mkbn/numeric-app:${GIT_COMMIT}"
   //   applicationURL="http://devsecops-demo.eastus.cloudapp.azure.com"
   //   applicationURI="/increment/99"
   // }
@@ -110,15 +110,15 @@ pipeline {
  //    }
     
 
- //    stage('Docker Build and Push') {
- //      steps {
- //        withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
- //          sh 'printenv'
- //          sh 'sudo docker build -t siddharth67/numeric-app:""$GIT_COMMIT"" .'
- //          sh 'docker push siddharth67/numeric-app:""$GIT_COMMIT""'
- //        }
- //      }
- //    }
+    stage('Docker Build and Push') {
+      steps {
+        withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+          sh 'printenv'
+          sh 'sudo docker build -t mkbn/numeric-app:""$GIT_COMMIT"" .'
+          sh 'docker push mkbn/numeric-app:""$GIT_COMMIT""'
+        }
+      }
+    }
 
  //    stage('Vulnerability Scan - Kubernetes') {
  //      steps {
